@@ -2,7 +2,7 @@
 DOTPATH=~/dotfiles
 
 mkdir ~/dotfiles
-git clone --recursive "https://github.com/systas0/dotfiles2.git" "$DOTPATH"
+git clone --recursive "https://github.com/systas0/dotfiles.git" "$DOTPATH"
 
 cd ~/dotfiles
 
