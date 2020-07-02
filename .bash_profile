@@ -6,4 +6,3 @@ eval "$(rbenv init -)"
 #eval "rbenv init -"
 #eval "hub alias -s"
 
-alias git='hub'
