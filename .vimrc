@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 "--------------------------------------------------
-" 文字コード/encoding
+" ファイル設定
 "--------------------------------------------------
 set encoding=utf-8
 " 保存時の文字コード
@@ -13,9 +13,6 @@ set fileformats=unix,dos,mac
 " 全角半角
 set ambiwidth=double
 
-"--------------------------------------------------
-" ファイル関連/file
-"--------------------------------------------------
 " バックアップファイルを作らない
 set nobackup
 " スワップファイルを作らない
@@ -24,14 +21,16 @@ set noswapfile
 set autoread
 " バッファが編集中でもその他のファイルを開けるように
 set hidden
-" 入力中のコマンドをステータスに表示する
-set showcmd
 
 "--------------------------------------------------
-" 編集/edit
+" 操作補助
 "--------------------------------------------------
 " コマンドラインの保管
 set wildmode=list:longest
+" コマンドモードの補完
+set wildmenu
+" 入力中のコマンドをステータスに表示する
+set showcmd
 
 if has('gui') || has('xterm_clipboard')
     "無名レジスタのデータを*レジスタにも入れる（yank内容をクリップボードと共有）
@@ -45,12 +44,8 @@ let _curfile=expand("%:t")
 if _curfile == ('Makefile')
     set noexpandtab
 endif
-" 行頭でのタブ文字の表示幅
-set tabstop=4
 " スマートインデント
 set smartindent
-set shiftwidth=4
-
 " 行末の1文字先までカーソル移動
 "set virtualedit=onemore
 " 矩形選択のブロック化（文字のないところにカーソル移動できるようにする）
@@ -58,9 +53,11 @@ set shiftwidth=4
 nnoremap ; :
 nnoremap : ;
 
-"--------------------------------------------------
-" 検索/search
-"--------------------------------------------------
+" 閉じタグ自動補完対象ファイル
+let g:closetag_filenames = '*.html, *php'
+" Emmet用キー
+let g:user_emmet_leader_key='<c-s>'
+
 " 検索するときに大文字小文字を区別しない
 set ignorecase
 " 小文字で検索すると大文字と小文字を無視して検索
@@ -78,7 +75,7 @@ set backspace=indent,eol,start
 nnoremap <Esc><Esc> :noh<CR>
 
 "--------------------------------------------------
-" 表示/display
+" 見た目
 "--------------------------------------------------
 " 行番号を表示
 set number
@@ -92,6 +89,12 @@ set list listchars=tab:\-\>,eol:$,trail:␣,space:␣
 "set visualbell
 " 長い行の表示
 set display=lastline
+" タブ幅
+set tabstop=4
+" インデント幅
+set shiftwidth=4
+"個別のタブインデント幅設定
+autocmd BufRead,BufNewFile *.php setlocal tabstop=2 shiftwidth=2
 " 全角スペースの可視化
 augroup highlightIdegraphicSpace
     autocmd!
@@ -117,8 +120,9 @@ set statusline+=%h
 set statusline+=%w
 " これ以降は右寄せ表示
 set statusline+=%=
-" file encoding
+" 文字コード
 set statusline+=[%{&fileencoding}]
+" 改行コード
 if &fileformat == ('unix')
     set statusline+=[LF]
 elseif &fileformat == ('dos')
@@ -129,18 +133,7 @@ endif
 " 現在行数/全行数
 set statusline+=[%l/%L]
 
-"--------------------------------------------------
-" コマンド
-"--------------------------------------------------
-" コマンドモードの補完
-set wildmenu
-" PHPのタブインデント幅設定
-autocmd BufRead,BufNewFile *.php setlocal tabstop=2 shiftwidth=2
-
 " 構文ハイライト
 syntax on
 set t_Co=256
-
-let g:closetag_filenames = '*.html, *php'
-let g:user_emmet_leader_key='<c-s>'
 
