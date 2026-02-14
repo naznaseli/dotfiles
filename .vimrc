@@ -236,3 +236,5 @@ set t_Co=256
 let g:closetag_filenames = '*.html, *php'
 let g:user_emmet_leader_key='<c-s>'
 "endif
+autocmd GUIEnter * simalt ~x
+
